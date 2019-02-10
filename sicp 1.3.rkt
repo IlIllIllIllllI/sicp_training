@@ -1,0 +1,21 @@
+#lang racket
+(define (>= x y)
+  (or (> x y) (= x y)))
+(define (max1 x y z)
+  (cond
+    ((and (> x y) (> x z)) x)
+    ((and (> y x) (> y z)) y)
+    ((and (> z x) (> z y)) z)))
+(define (max2 x y z)
+  (cond
+    ((and (< x (max1 x y z)) (> x z)) x)
+    ((and (< y (max1 x y z)) (> y z)) y)
+    ((and (< z (max1 x y z)) (> z x)) z)
+    ((and (< x (max1 x y z)) (> x y)) x)
+    ((and (< z (max1 x y z)) (> z y)) z)
+    ((and (< y (max1 x y z)) (> y x)) y)))
+(define (square x)
+  (* x x))
+(define (sumsquaremax x y z)
+  (+ (square (max1 x y z)) (square (max2 x y z))))
+(sumsquaremax 10 4 20)
